@@ -1,40 +1,7 @@
 <?php
 
-use App\Http\Controllers\MovieController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Movies
-|--------------------------------------------------------------------------
-|
-| This function is used to provide data for the application. This is not
-| standard practice.
-|
-*/
-function movies () {
-    return [
-        [
-          'movie_id' => 1,
-          'movie_title' => "Labyrinth", 
-          'director' => "Jim Henson", 
-          'year' => 1986 
-        ],
-        [ 
-          'movie_id' => 2,
-          'movie_title' => "Highlander", 
-          'director' => "Russell Mulcahy", 
-          'year' => 1986 
-        ],
-        [ 
-          'movie_id' => 3,
-          'movie_title' => "Alien", 
-          'director' => "Ridley Scott", 
-          'year' => 1979
-        ]
-    ];
-}
-
+use App\Models\Movie;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +14,12 @@ function movies () {
 |
 */
 
-Route::get('/', [MovieController::class, 'index']);
-Route::get('/movie/{movie_id}', [MovieController::class, 'show']);
+Route::get('/', function () {
+    $movies = Movie::all();
+    return view('home', ['movies' => $movies]);
+});
 
+Route::get('/movie/{id}', function ($id) {
+    $movie = Movie::find($id);
+    return view('movie', $movie);
+});

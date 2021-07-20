@@ -2,13 +2,35 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class Movie extends Model
+class Movie
 {
-    use HasFactory;
+    private static $movies = [
+        [
+          'movie_id' => 1,
+          'movie_title' => "Labyrinth", 
+          'director' => "Jim Henson", 
+          'year' => 1986 
+        ],
+        [ 
+          'movie_id' => 2,
+          'movie_title' => "Highlander", 
+          'director' => "Russell Mulcahy", 
+          'year' => 1986 
+        ],
+        [ 
+          'movie_id' => 3,
+          'movie_title' => "Alien", 
+          'director' => "Ridley Scott", 
+          'year' => 1979
+        ]
+    ];
 
-    protected $primaryKey = 'movie_id';
-    public $timestamps = false;
+    public static function all () {
+        return self::$movies;
+    }
+
+    public static function find ($id) {
+        return array_values(array_filter(self::$movies, 
+            fn($movie) => $movie['movie_id'] == $id))[0];
+    }
 }

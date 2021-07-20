@@ -1,22 +1,11 @@
-@extends('base')
+<x-layout>
+  <x-slot name="title">{{ $movie_title }}</x-slot>
 
-@section('title', $movie['movie_title'])
+  <section class="movie-details">
+    <h2 class="movie-title">
+      {{ $movie_title }} <span class="movie-year">({{ $year }})</span></h2>    
+    <p>Director<br>
+    <strong>{{ $director }}</strong></p>
+  </section>
 
-@section('content')
-<div class="row my-3">
-  <div class="col-6">
-    
-  </div>
-  <div class="col-6 d-flex justify-content-end">
-    <a class="btn btn-outline-primary" href="">Edit</a> 
-  </div>
-</div>
-<div class="row">
-  <div class="col">
-    <h1 class="display-4">{{ $movie['movie_title'] }} ({{ $movie['year'] }})</h1>
-    <h4>{{ $movie['director'] }}</h4>
-
-    <p><a href="/">Back</a></p>
-  </div>
-</div>
-@endsection
+</x-layout>
